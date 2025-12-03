@@ -1,0 +1,184 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+// User Management
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  password      String
+  role          UserRole  @default(USER)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  orders        Order[]
+  subscriptions Subscription[]
+}
+
+enum UserRole {
+  USER
+  ADMIN
+  EDITOR
+}
+
+// Magazine Articles
+model Article {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  content     String
+  excerpt     String?
+  coverImage  String?
+  author      String
+  publishedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  categoryId  String?
+  category    Category? @relation(fields: [categoryId], references: [id])
+  issueId     String?
+  issue       Issue?   @relation(fields: [issueId], references: [id])
+}
+
+// Magazine Issues
+model Issue {
+  id          String    @id @default(cuid())
+  title       String
+  number      Int       @unique
+  year        Int
+  coverImage  String?
+  description String?
+  publishedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  articles    Article[]
+}
+
+// Categories
+model Category {
+  id          String    @id @default(cuid())
+  name        String    @unique
+  slug        String    @unique
+  description String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  articles    Article[]
+  products    Product[]
+}
+
+// Products (for store)
+model Product {
+  id          String        @id @default(cuid())
+  title       String
+  slug        String        @unique
+  description String
+  price       Float
+  type        ProductType
+  coverImage  String?
+  featured    Boolean       @default(false)
+  inStock     Boolean       @default(true)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  categoryId  String?
+  category    Category?     @relation(fields: [categoryId], references: [id])
+  orderItems  OrderItem[]
+}
+
+enum ProductType {
+  MASTER
+  EBOOK
+  SUBSCRIPTION
+  WEBINAR
+  BOOK
+}
+
+// Orders
+model Order {
+  id          String      @id @default(cuid())
+  userId      String
+  user        User        @relation(fields: [userId], references: [id])
+  total       Float
+  status      OrderStatus @default(PENDING)
+  stripeId    String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  items       OrderItem[]
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  SHIPPED
+  COMPLETED
+  CANCELLED
+}
+
+// Order Items
+model OrderItem {
+  id        String   @id @default(cuid())
+  orderId   String
+  order     Order    @relation(fields: [orderId], references: [id])
+  productId String
+  product   Product  @relation(fields: [productId], references: [id])
+  quantity  Int
+  price     Float
+  createdAt DateTime @default(now())
+}
+
+// Subscriptions
+model Subscription {
+  id          String             @id @default(cuid())
+  userId      String
+  user        User               @relation(fields: [userId], references: [id])
+  type        SubscriptionType
+  status      SubscriptionStatus @default(ACTIVE)
+  startDate   DateTime
+  endDate     DateTime
+  stripeId    String?
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+}
+
+enum SubscriptionType {
+  MONTHLY
+  YEARLY
+  LIFETIME
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  EXPIRED
+  CANCELLED
+}
+
+// Webinars
+model Webinar {
+  id          String    @id @default(cuid())
+  title       String
+  slug        String    @unique
+  description String
+  presenter   String
+  date        DateTime
+  duration    Int       // in minutes
+  price       Float
+  maxAttendees Int?
+  registrations Int     @default(0)
+  meetingLink String?
+  coverImage  String?
+  status      WebinarStatus @default(SCHEDULED)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+enum WebinarStatus {
+  SCHEDULED
+  LIVE
+  COMPLETED
+  CANCELLED
+}
