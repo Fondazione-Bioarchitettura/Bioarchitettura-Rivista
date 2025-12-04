@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server'
-import { env } from '@/lib/env'
 
 /**
  * System Status Check API
@@ -10,6 +9,17 @@ import { env } from '@/lib/env'
 export async function GET() {
   // Read version from package.json at build time
   const version = '0.1.0' // This should match package.json version
+  
+  // Read environment variables at runtime
+  const env = {
+    NODE_ENV: process.env.NODE_ENV || 'development',
+    DATABASE_URL: process.env.DATABASE_URL,
+    NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
+    NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+    STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
+    VERCEL: process.env.VERCEL,
+    VERCEL_REGION: process.env.VERCEL_REGION,
+  }
   
   const status = {
     status: 'operational',
@@ -22,12 +32,12 @@ export async function GET() {
         message: 'API is responding'
       },
       database: {
-        status: 'unknown',
-        message: 'Database connection not tested (requires Prisma client)'
+        status: env.DATABASE_URL ? 'configured' : 'not configured',
+        message: env.DATABASE_URL ? 'Database URL is set' : 'DATABASE_URL is missing'
       },
       auth: {
-        status: env.NEXTAUTH_SECRET ? 'configured' : 'not configured',
-        message: env.NEXTAUTH_SECRET ? 'NextAuth is configured' : 'NEXTAUTH_SECRET is missing'
+        status: env.NEXTAUTH_SECRET && env.NEXTAUTH_URL ? 'configured' : 'not configured',
+        message: (env.NEXTAUTH_SECRET && env.NEXTAUTH_URL) ? 'NextAuth is configured' : 'NextAuth configuration is incomplete'
       },
       stripe: {
         status: env.STRIPE_SECRET_KEY ? 'configured' : 'not configured',
@@ -38,15 +48,17 @@ export async function GET() {
       nodeVersion: process.version,
       nextJsVersion: '14.2+',
       deployment: {
-        vercel: !!process.env.VERCEL,
-        region: process.env.VERCEL_REGION || 'unknown'
+        vercel: !!env.VERCEL,
+        region: env.VERCEL_REGION || 'unknown'
       }
     }
   }
 
   // Check if any critical components are not configured
   const criticalIssues = Object.entries(status.components)
-    .filter(([, component]) => component.status === 'not configured')
+    .filter(([key, component]) => 
+      key !== 'stripe' && component.status === 'not configured'
+    )
     .map(([name]) => name)
 
   if (criticalIssues.length > 0) {

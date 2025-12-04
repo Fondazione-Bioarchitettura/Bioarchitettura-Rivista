@@ -64,7 +64,5 @@ export function validateEnv() {
   }
 }
 
-// Validate on import in production
-if (env.NODE_ENV === 'production') {
-  validateEnv()
-}
+// Note: Call validateEnv() manually in API routes or server components when needed
+// Don't validate on import to avoid build-time errors
