@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bioarchitettura Rivista - Rivista Italiana di Architettura Sostenibile, corsi master, webinar ed e-books">
+    <meta name="keywords" content="bioarchitettura, architettura sostenibile, rivista, pubblicazioni, master, webinar">
+    <meta name="author" content="Fondazione Bioarchitettura">
+    <title>Bioarchitettura Rivista - Architettura Sostenibile Italiana</title>
+    
+    <style>
+        /* Picasso-inspired Geometric Design with Modern Aesthetics */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            /* Picasso-inspired color palette */
+            --primary-blue: #2E5090;
+            --cubist-orange: #E87722;
+            --warm-yellow: #F4B942;
+            --rose-period: #E63946;
+            --earth-brown: #8B5A3C;
+            --abstract-grey: #6C7A89;
+            --light-beige: #F4F1E8;
+            --white: #FFFFFF;
+            --black: #1A1A1A;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--black);
+            background: var(--light-beige);
+            overflow-x: hidden;
+        }
+        
+        /* Navigation Styles */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            text-decoration: none;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--cubist-orange);
+            transform: rotate(45deg);
+            margin-right: 0.5rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--black);
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--cubist-orange);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-blue);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+        
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-blue);
+            transition: all 0.3s ease;
+        }
+        
+        /* Hero Section with Geometric Shapes */
+        .hero {
+            margin-top: 80px;
+            min-height: 90vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--light-beige) 0%, #E8E4D9 100%);
+        }
+        
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Picasso-inspired geometric shapes as background */
+        .geometric-shape {
+            position: absolute;
+            opacity: 0.6;
+            z-index: 1;
+        }
+        
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--primary-blue);
+            border-radius: 50%;
+            top: 10%;
+            right: 5%;
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+        }
+        
+        .shape-2 {
+            width: 200px;
+            height: 200px;
+            background: var(--cubist-orange);
+            bottom: 15%;
+            left: 8%;
+            transform: rotate(45deg);
+        }
+        
+        .shape-3 {
+            width: 150px;
+            height: 150px;
+            background: var(--warm-yellow);
+            top: 40%;
+            right: 15%;
+            border-radius: 50%;
+        }
+        
+        .shape-4 {
+            width: 250px;
+            height: 250px;
+            border: 20px solid var(--rose-period);
+            top: 60%;
+            left: 15%;
+            clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+        }
+        
+        .hero-content {
+            max-width: 700px;
+        }
+        
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            position: relative;
+        }
+        
+        .hero-title span {
+            color: var(--cubist-orange);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--abstract-grey);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+        
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--black);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+        
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 0;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: var(--primary-blue);
+            color: var(--white);
+            border: 3px solid var(--primary-blue);
+            clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
+        }
+        
+        .btn-primary:hover {
+            background: var(--cubist-orange);
+            border-color: var(--cubist-orange);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-blue);
+            border: 3px solid var(--primary-blue);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--primary-blue);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+        
+        /* Banner Section */
+        .banner {
+            background: linear-gradient(90deg, var(--primary-blue) 0%, var(--cubist-orange) 100%);
+            padding: 3rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .banner::before {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            top: -50px;
+            left: 10%;
+        }
+        
+        .banner::after {
+            content: '';
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: rgba(255, 255, 255, 0.1);
+            bottom: -30px;
+            right: 15%;
+            transform: rotate(45deg);
+        }
+        
+        .banner-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .banner-title {
+            font-size: 2.5rem;
+            color: var(--white);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .banner-text {
+            font-size: 1.2rem;
+            color: var(--white);
+            opacity: 0.95;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Introduction Section */
+        .intro-section {
+            padding: 5rem 2rem;
+            background: var(--white);
+        }
+        
+        .intro-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .intro-content h2 {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .intro-content h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--cubist-orange);
+        }
+        
+        .intro-content p {
+            font-size: 1.1rem;
+            color: var(--abstract-grey);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+        
+        .intro-visual {
+            position: relative;
+            height: 400px;
+        }
+        
+        /* Geometric composition inspired by Picasso */
+        .visual-element {
+            position: absolute;
+            transition: transform 0.3s ease;
+        }
+        
+        .visual-1 {
+            width: 200px;
+            height: 200px;
+            background: var(--primary-blue);
+            top: 0;
+            left: 0;
+            clip-path: polygon(0% 0%, 100% 0%, 100% 100%);
+        }
+        
+        .visual-2 {
+            width: 180px;
+            height: 180px;
+            background: var(--cubist-orange);
+            bottom: 50px;
+            right: 50px;
+            border-radius: 50%;
+        }
+        
+        .visual-3 {
+            width: 150px;
+            height: 150px;
+            background: var(--warm-yellow);
+            top: 40%;
+            left: 40%;
+            transform: rotate(45deg);
+        }
+        
+        .visual-4 {
+            width: 120px;
+            height: 120px;
+            border: 15px solid var(--rose-period);
+            bottom: 20px;
+            left: 20px;
+        }
+        
+        /* Featured Sections Grid */
+        .featured-sections {
+            padding: 5rem 2rem;
+            background: var(--light-beige);
+        }
+        
+        .featured-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .featured-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 3rem;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background: var(--white);
+            padding: 2rem;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--cubist-orange);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--white);
+            margin-bottom: 1rem;
+            clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+        }
+        
+        .feature-card:nth-child(2) .feature-icon {
+            background: var(--cubist-orange);
+        }
+        
+        .feature-card:nth-child(3) .feature-icon {
+            background: var(--warm-yellow);
+        }
+        
+        .feature-card:nth-child(4) .feature-icon {
+            background: var(--rose-period);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card p {
+            color: var(--abstract-grey);
+            line-height: 1.6;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--black);
+            color: var(--white);
+            padding: 3rem 2rem 1rem;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            color: var(--cubist-orange);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-section a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-section a:hover {
+            color: var(--cubist-orange);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--abstract-grey);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                flex-direction: column;
+                background: var(--white);
+                width: 100%;
+                padding: 2rem;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                transition: left 0.3s ease;
+                gap: 1rem;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .menu-toggle {
+                display: flex;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .intro-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .intro-visual {
+                height: 300px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .shape-1,
+            .shape-2,
+            .shape-3,
+            .shape-4 {
+                opacity: 0.3;
+            }
+            
+            .hero-cta {
+                flex-direction: column;
+            }
+            
+            .btn {
+                text-align: center;
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .banner-title {
+                font-size: 1.8rem;
+            }
+            
+            .intro-content h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">Bioarchitettura</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#publications">Publications</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <!-- Picasso-inspired geometric shapes -->
+        <div class="geometric-shape shape-1"></div>
+        <div class="geometric-shape shape-2"></div>
+        <div class="geometric-shape shape-3"></div>
+        <div class="geometric-shape shape-4"></div>
+        
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span>Bio</span>architettura<br>Rivista
+                </h1>
+                <p class="hero-subtitle">Rivista Italiana di Architettura Sostenibile</p>
+                <p class="hero-description">
+                    Scopri il mondo della bioarchitettura attraverso articoli approfonditi, 
+                    corsi master, webinar esclusivi e pubblicazioni dedicate all'architettura 
+                    sostenibile e al design ecologico.
+                </p>
+                <div class="hero-cta">
+                    <a href="#publications" class="btn btn-primary">Esplora Pubblicazioni</a>
+                    <a href="#about" class="btn btn-secondary">Chi Siamo</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Banner Section -->
+    <section class="banner">
+        <div class="banner-container">
+            <h2 class="banner-title">Costruire il Futuro Sostenibile</h2>
+            <p class="banner-text">
+                Unisciti a noi nel viaggio verso un'architettura che rispetta l'ambiente, 
+                promuove il benessere e crea spazi armoniosi per le generazioni future.
+            </p>
+        </div>
+    </section>
+
+    <!-- Introduction Section -->
+    <section class="intro-section" id="about">
+        <div class="intro-container">
+            <div class="intro-content">
+                <h2>La Nostra Missione</h2>
+                <p>
+                    Bioarchitettura Rivista è il punto di riferimento italiano per 
+                    professionisti, studenti e appassionati di architettura sostenibile. 
+                    Promuoviamo una visione olistica dell'architettura che integra 
+                    rispetto ambientale, salute degli occupanti e bellezza estetica.
+                </p>
+                <p>
+                    Attraverso contenuti di qualità, formazione specializzata e una 
+                    community attiva, facilitiamo lo scambio di conoscenze e l'innovazione 
+                    nel campo della bioarchitettura e del design sostenibile.
+                </p>
+                <a href="#contact" class="btn btn-primary">Contattaci</a>
+            </div>
+            <div class="intro-visual">
+                <!-- Geometric composition inspired by Picasso's cubism -->
+                <div class="visual-element visual-1"></div>
+                <div class="visual-element visual-2"></div>
+                <div class="visual-element visual-3"></div>
+                <div class="visual-element visual-4"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Sections -->
+    <section class="featured-sections" id="publications">
+        <div class="featured-container">
+            <h2 class="featured-title">Cosa Offriamo</h2>
+            <div class="features-grid">
+                <article class="feature-card">
+                    <div class="feature-icon">📚</div>
+                    <h3>Rivista</h3>
+                    <p>
+                        Articoli approfonditi, analisi di progetti e tendenze emergenti 
+                        nell'architettura sostenibile. La nostra rivista è una risorsa 
+                        essenziale per professionisti del settore.
+                    </p>
+                </article>
+                
+                <article class="feature-card">
+                    <div class="feature-icon">🎓</div>
+                    <h3>Corsi Master</h3>
+                    <p>
+                        Programmi di formazione specialistica con esperti del settore. 
+                        Approfondisci le tue competenze in bioarchitettura e design 
+                        sostenibile attraverso i nostri master.
+                    </p>
+                </article>
+                
+                <article class="feature-card">
+                    <div class="feature-icon">💻</div>
+                    <h3>Webinar</h3>
+                    <p>
+                        Sessioni online interattive con professionisti e ricercatori. 
+                        Resta aggiornato sulle ultime innovazioni e best practices 
+                        del settore.
+                    </p>
+                </article>
+                
+                <article class="feature-card">
+                    <div class="feature-icon">📖</div>
+                    <h3>E-books</h3>
+                    <p>
+                        Una biblioteca digitale di guide, manuali e pubblicazioni 
+                        specializzate. Accesso immediato a conoscenze approfondite 
+                        sempre a portata di mano.
+                    </p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Bioarchitettura</h3>
+                <p>
+                    Rivista Italiana di Architettura Sostenibile. 
+                    Promuoviamo un'architettura rispettosa dell'ambiente 
+                    e del benessere umano.
+                </p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Link Rapidi</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">Chi Siamo</a></li>
+                    <li><a href="#publications">Pubblicazioni</a></li>
+                    <li><a href="#contact">Contatti</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Risorse</h3>
+                <ul>
+                    <li><a href="#">Rivista Online</a></li>
+                    <li><a href="#">Corsi Master</a></li>
+                    <li><a href="#">Webinar</a></li>
+                    <li><a href="#">E-books</a></li>
+                    <li><a href="#">Negozio</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contatti</h3>
+                <ul>
+                    <li>Email: info@bioarchitettura.it</li>
+                    <li>Tel: +39 [Numero]</li>
+                    <li>Indirizzo: [Da definire]</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 Fondazione Bioarchitettura. Tutti i diritti riservati.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Mobile Navigation -->
+    <script>
+        // Mobile menu toggle functionality
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        
+        if (menuToggle) {
+            menuToggle.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+            });
+        }
+        
+        // Close mobile menu when clicking on a link
+        const navLinkItems = document.querySelectorAll('.nav-links a');
+        navLinkItems.forEach(link => {
+            link.addEventListener('click', function() {
+                navLinks.classList.remove('active');
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const href = this.getAttribute('href');
+                // Validate href to prevent CSS selector injection
+                if (href && href.startsWith('#') && /^#[\w-]+$/.test(href)) {
+                    const target = document.getElementById(href.substring(1));
+                    if (target) {
+                        const offset = 80; // Account for fixed navigation
+                        const targetPosition = target.offsetTop - offset;
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+        
+        // Add scroll effect to navigation
+        let lastScroll = 0;
+        const nav = document.querySelector('nav');
+        
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                nav.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.15)';
+            } else {
+                nav.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+            }
+            
+            lastScroll = currentScroll;
+        });
+        
+        // Simple animation on scroll for visual elements
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe feature cards for animation
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
