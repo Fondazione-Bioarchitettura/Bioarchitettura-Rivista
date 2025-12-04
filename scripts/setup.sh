@@ -15,9 +15,16 @@ if ! command -v node &> /dev/null; then
     exit 1
 fi
 
-NODE_VERSION=$(node -v | cut -d'v' -f2 | cut -d'.' -f1)
-if [ "$NODE_VERSION" -lt 18 ]; then
-    echo "❌ Node.js version 18 or higher is required. Current version: $(node -v)"
+NODE_VERSION=$(node -v | sed 's/v//')
+REQUIRED_VERSION="18.0.0"
+
+# Function to compare versions
+version_ge() {
+    printf '%s\n%s\n' "$2" "$1" | sort -V -C
+}
+
+if ! version_ge "$NODE_VERSION" "$REQUIRED_VERSION"; then
+    echo "❌ Node.js version 18 or higher is required. Current version: v$NODE_VERSION"
     exit 1
 fi
 
@@ -63,10 +70,14 @@ fi
 
 # Check if database exists
 echo "🗄️  Checking database..."
-if npx prisma migrate status &> /dev/null; then
-    echo "✅ Database is configured"
+if [ -f .env ] && grep -q "DATABASE_URL" .env; then
+    if npx prisma migrate status &> /dev/null; then
+        echo "✅ Database is configured"
+    else
+        echo "⚠️  Database not initialized. Run: npx prisma migrate dev"
+    fi
 else
-    echo "⚠️  Database not initialized. Run: npm run prisma:migrate"
+    echo "⚠️  Database not configured. Edit .env and run: npx prisma migrate dev"
 fi
 echo ""
 

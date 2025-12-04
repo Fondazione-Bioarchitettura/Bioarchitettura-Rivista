@@ -33,11 +33,14 @@ export function validateEnv() {
     'NEXTAUTH_SECRET',
   ] as const
 
-  const missing = required.filter(key => !env[key])
+  const missing = required.filter(key => {
+    const value = env[key]
+    return !value || (typeof value === 'string' && value.trim() === '')
+  })
 
   if (missing.length > 0) {
     throw new Error(
-      `Missing required environment variables:\n${missing
+      `Missing or empty required environment variables:\n${missing
         .map(key => `  - ${key}`)
         .join('\n')}\n\nPlease check your .env file or deployment configuration.`
     )

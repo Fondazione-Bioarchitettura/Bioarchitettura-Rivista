@@ -175,15 +175,33 @@ jobs:
           </html>
           EOF
 
-          # Convert README to HTML
-          echo '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>README - Bioarchitettura</title><style>body{font-family:sans-serif;max-width:800px;margin:2rem auto;padding:0 1rem;line-height:1.6;}h1,h2,h3{color:#2c5f2d;}code{background:#f4f4f4;padding:2px 6px;border-radius:3px;}pre{background:#f4f4f4;padding:1rem;border-radius:4px;overflow-x:auto;}</style></head><body>' > _site/README.html
-          cat README.md | sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g' | sed 's/^# \(.*\)$/<h1>\1<\/h1>/g; s/^## \(.*\)$/<h2>\1<\/h2>/g; s/^### \(.*\)$/<h3>\1<\/h3>/g' >> _site/README.html
-          echo '</body></html>' >> _site/README.html
+          # Create simple HTML wrappers for documentation
+          # Note: For full documentation, view the files directly on GitHub
+          
+          # Redirect pages to GitHub for better formatting
+          cat > _site/README.html << 'READMEEOF'
+          <!DOCTYPE html>
+          <html><head><meta charset="UTF-8">
+          <meta http-equiv="refresh" content="0;url=https://github.com/Fondazione-Bioarchitettura/Bioarchitettura-Rivista/blob/main/README.md">
+          <title>README - Bioarchitettura</title>
+          <style>body{font-family:sans-serif;max-width:800px;margin:2rem auto;padding:2rem;text-align:center;}a{color:#2c5f2d;}</style>
+          </head><body>
+          <h1>Redirecting to README...</h1>
+          <p>If you are not redirected, <a href="https://github.com/Fondazione-Bioarchitettura/Bioarchitettura-Rivista/blob/main/README.md">click here</a></p>
+          </body></html>
+          READMEEOF
 
-          # Convert DEPLOYMENT to HTML
-          echo '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Deployment Guide - Bioarchitettura</title><style>body{font-family:sans-serif;max-width:800px;margin:2rem auto;padding:0 1rem;line-height:1.6;}h1,h2,h3{color:#2c5f2d;}code{background:#f4f4f4;padding:2px 6px;border-radius:3px;}pre{background:#f4f4f4;padding:1rem;border-radius:4px;overflow-x:auto;}</style></head><body>' > _site/DEPLOYMENT.html
-          cat DEPLOYMENT.md | sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g' | sed 's/^# \(.*\)$/<h1>\1<\/h1>/g; s/^## \(.*\)$/<h2>\1<\/h2>/g; s/^### \(.*\)$/<h3>\1<\/h3>/g' >> _site/DEPLOYMENT.html
-          echo '</body></html>' >> _site/DEPLOYMENT.html
+          cat > _site/DEPLOYMENT.html << 'DEPLOYEOF'
+          <!DOCTYPE html>
+          <html><head><meta charset="UTF-8">
+          <meta http-equiv="refresh" content="0;url=https://github.com/Fondazione-Bioarchitettura/Bioarchitettura-Rivista/blob/main/DEPLOYMENT.md">
+          <title>Deployment Guide - Bioarchitettura</title>
+          <style>body{font-family:sans-serif;max-width:800px;margin:2rem auto;padding:2rem;text-align:center;}a{color:#2c5f2d;}</style>
+          </head><body>
+          <h1>Redirecting to Deployment Guide...</h1>
+          <p>If you are not redirected, <a href="https://github.com/Fondazione-Bioarchitettura/Bioarchitettura-Rivista/blob/main/DEPLOYMENT.md">click here</a></p>
+          </body></html>
+          DEPLOYEOF
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

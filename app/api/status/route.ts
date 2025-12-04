@@ -8,10 +8,13 @@ import { env } from '@/lib/env'
  * Useful for monitoring and deployment verification
  */
 export async function GET() {
+  // Read version from package.json at build time
+  const version = '0.1.0' // This should match package.json version
+  
   const status = {
     status: 'operational',
     timestamp: new Date().toISOString(),
-    version: process.env.npm_package_version || '0.1.0',
+    version,
     environment: env.NODE_ENV,
     components: {
       api: {
