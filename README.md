@@ -64,10 +64,43 @@ Admin Dashboard
 Access at /admin - manage articles, products, orders, webinars, and users.
 
 Deployment
-Deploy on Vercel, Railway, Render, or any Node.js platform.
 
-For production, update to PostgreSQL or MySQL:
+This project is configured for automated deployment to Vercel with GitHub Actions CI/CD.
 
-Update prisma/schema.prisma datasource
-Update DATABASE_URL
-Run npx prisma migrate deploy
+### Quick Deploy to Vercel
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Fondazione-Bioarchitettura/Bioarchitettura-Rivista)
+
+### Automated Deployment
+
+The project includes GitHub Actions workflow that automatically:
+- Validates and lints code on every push
+- Deploys preview environments for pull requests
+- Deploys to production when merging to main branch
+- Runs database migrations automatically
+
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed setup instructions.
+
+### Required Environment Variables
+
+Set these in your Vercel project settings:
+- `DATABASE_URL` - PostgreSQL connection string
+- `NEXTAUTH_URL` - Your production URL
+- `NEXTAUTH_SECRET` - Generate with `openssl rand -base64 32`
+- `STRIPE_SECRET_KEY` - Your Stripe secret key
+- `STRIPE_PUBLISHABLE_KEY` - Your Stripe publishable key
+- `STRIPE_WEBHOOK_SECRET` - Your Stripe webhook secret
+
+### Production Database
+
+The project uses PostgreSQL in production (configured in `prisma/schema.prisma`).
+Recommended providers:
+- Vercel Postgres
+- Supabase
+- Railway
+- Neon
+
+Run migrations on deployment:
+```bash
+npx prisma migrate deploy
+```
