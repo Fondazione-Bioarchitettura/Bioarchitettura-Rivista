@@ -45,9 +45,25 @@ Complete interactive website with CMS management for the Bioarchitettura archite
 - npm or yarn
 - PostgreSQL (for production) or SQLite (for development)
 
-### Installation
+### Quick Setup (Recommended)
+
+Run the automated setup script:
+
+```bash
+./scripts/setup.sh
+```
+
+This script will:
+- Check Node.js version
+- Install dependencies
+- Generate Prisma Client
+- Create .env file from template
+- Run linter
+
+### Manual Installation
 
 1. **Install dependencies:**
+
 ```bash
 npm install
 ```
