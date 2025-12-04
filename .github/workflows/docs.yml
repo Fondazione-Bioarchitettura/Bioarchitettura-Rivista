@@ -1,0 +1,218 @@
+name: Deploy Documentation to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'README.md'
+      - 'DEPLOYMENT.md'
+      - 'docs/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Create documentation site
+        run: |
+          mkdir -p _site
+          
+          # Create index page
+          cat > _site/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Bioarchitettura - Documentation</title>
+            <style>
+              * { margin: 0; padding: 0; box-sizing: border-box; }
+              body { 
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+                line-height: 1.6;
+                color: #333;
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 2rem;
+                background: #f5f5f5;
+              }
+              header {
+                background: #2c5f2d;
+                color: white;
+                padding: 2rem;
+                border-radius: 8px;
+                margin-bottom: 2rem;
+              }
+              h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+              h2 { color: #2c5f2d; margin: 2rem 0 1rem; }
+              .container {
+                background: white;
+                padding: 2rem;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+              }
+              .card {
+                background: #f9f9f9;
+                padding: 1.5rem;
+                margin: 1rem 0;
+                border-left: 4px solid #2c5f2d;
+                border-radius: 4px;
+              }
+              .card h3 { color: #2c5f2d; margin-bottom: 0.5rem; }
+              a {
+                color: #2c5f2d;
+                text-decoration: none;
+                font-weight: 500;
+              }
+              a:hover { text-decoration: underline; }
+              .badge {
+                display: inline-block;
+                padding: 0.25rem 0.75rem;
+                background: #2c5f2d;
+                color: white;
+                border-radius: 12px;
+                font-size: 0.875rem;
+                margin: 0.25rem;
+              }
+              footer {
+                margin-top: 3rem;
+                padding-top: 2rem;
+                border-top: 1px solid #ddd;
+                text-align: center;
+                color: #666;
+              }
+            </style>
+          </head>
+          <body>
+            <header>
+              <h1>🏛️ Bioarchitettura</h1>
+              <p>Interactive Website Documentation & Deployment Guide</p>
+            </header>
+
+            <div class="container">
+              <h2>📚 Documentation</h2>
+              
+              <div class="card">
+                <h3>Project Overview</h3>
+                <p>Complete interactive website with CMS management for the Bioarchitettura magazine, including an online store for master courses, subscriptions, ebooks, webinars, and publications.</p>
+                <div style="margin-top: 1rem;">
+                  <span class="badge">Next.js 14+</span>
+                  <span class="badge">TypeScript</span>
+                  <span class="badge">Tailwind CSS</span>
+                  <span class="badge">Prisma</span>
+                  <span class="badge">PostgreSQL</span>
+                </div>
+              </div>
+
+              <div class="card">
+                <h3>📖 Documentation Files</h3>
+                <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                  <li><a href="./README.html">README - Project Overview</a></li>
+                  <li><a href="./DEPLOYMENT.html">DEPLOYMENT - Deployment Guide</a></li>
+                  <li><a href="https://github.com/Fondazione-Bioarchitettura/Bioarchitettura-Rivista" target="_blank">GitHub Repository</a></li>
+                </ul>
+              </div>
+
+              <div class="card">
+                <h3>🚀 Deployment Status</h3>
+                <p>The application is deployed via Vercel with automated CI/CD through GitHub Actions.</p>
+                <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                  <li>Production: Deployed automatically on push to main branch</li>
+                  <li>Preview: Deployed automatically for pull requests</li>
+                  <li>Database migrations run automatically on production deployments</li>
+                </ul>
+              </div>
+
+              <div class="card">
+                <h3>✨ Features</h3>
+                <ul style="margin-left: 1.5rem;">
+                  <li><strong>CMS:</strong> Content management for articles, issues, and categories</li>
+                  <li><strong>E-commerce:</strong> Product catalog with shopping cart and order management</li>
+                  <li><strong>Subscriptions:</strong> Monthly, yearly, and lifetime subscription plans</li>
+                  <li><strong>Courses & Webinars:</strong> Online learning platform</li>
+                  <li><strong>Admin Dashboard:</strong> Complete management interface</li>
+                  <li><strong>Payment Integration:</strong> Stripe payment processing</li>
+                </ul>
+              </div>
+
+              <div class="card">
+                <h3>🛠️ Technology Stack</h3>
+                <ul style="margin-left: 1.5rem;">
+                  <li><strong>Framework:</strong> Next.js 14+ with App Router</li>
+                  <li><strong>Language:</strong> TypeScript</li>
+                  <li><strong>Styling:</strong> Tailwind CSS</li>
+                  <li><strong>Database:</strong> PostgreSQL with Prisma ORM</li>
+                  <li><strong>Authentication:</strong> NextAuth.js</li>
+                  <li><strong>Payments:</strong> Stripe</li>
+                  <li><strong>Deployment:</strong> Vercel with GitHub Actions CI/CD</li>
+                </ul>
+              </div>
+            </div>
+
+            <footer>
+              <p>© 2024 Fondazione Bioarchitettura. All rights reserved.</p>
+              <p style="margin-top: 0.5rem;">
+                <a href="https://github.com/Fondazione-Bioarchitettura/Bioarchitettura-Rivista" target="_blank">View on GitHub</a>
+              </p>
+            </footer>
+          </body>
+          </html>
+          EOF
+
+          # Create simple HTML wrappers for documentation
+          # Note: For full documentation, view the files directly on GitHub
+          
+          # Redirect pages to GitHub for better formatting
+          cat > _site/README.html << 'READMEEOF'
+          <!DOCTYPE html>
+          <html><head><meta charset="UTF-8">
+          <meta http-equiv="refresh" content="0;url=https://github.com/Fondazione-Bioarchitettura/Bioarchitettura-Rivista/blob/main/README.md">
+          <title>README - Bioarchitettura</title>
+          <style>body{font-family:sans-serif;max-width:800px;margin:2rem auto;padding:2rem;text-align:center;}a{color:#2c5f2d;}</style>
+          </head><body>
+          <h1>Redirecting to README...</h1>
+          <p>If you are not redirected, <a href="https://github.com/Fondazione-Bioarchitettura/Bioarchitettura-Rivista/blob/main/README.md">click here</a></p>
+          </body></html>
+          READMEEOF
+
+          cat > _site/DEPLOYMENT.html << 'DEPLOYEOF'
+          <!DOCTYPE html>
+          <html><head><meta charset="UTF-8">
+          <meta http-equiv="refresh" content="0;url=https://github.com/Fondazione-Bioarchitettura/Bioarchitettura-Rivista/blob/main/DEPLOYMENT.md">
+          <title>Deployment Guide - Bioarchitettura</title>
+          <style>body{font-family:sans-serif;max-width:800px;margin:2rem auto;padding:2rem;text-align:center;}a{color:#2c5f2d;}</style>
+          </head><body>
+          <h1>Redirecting to Deployment Guide...</h1>
+          <p>If you are not redirected, <a href="https://github.com/Fondazione-Bioarchitettura/Bioarchitettura-Rivista/blob/main/DEPLOYMENT.md">click here</a></p>
+          </body></html>
+          DEPLOYEOF
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+
+  deploy-docs:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build-docs
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
